@@ -12,7 +12,7 @@ class RegisterScreen extends StatelessWidget {
 
   Widget _formField(
       TextEditingController controller, String hint, bool obscure) {
-    return Container(
+    return SizedBox(
       height: 56,
       child: TextFormField(
         controller: controller,

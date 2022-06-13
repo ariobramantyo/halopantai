@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halopantai/const/color.dart';
+import 'package:halopantai/view/navbar.dart';
 import 'package:halopantai/view/register_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -11,7 +12,7 @@ class LoginScreen extends StatelessWidget {
 
   Widget _formField(
       TextEditingController controller, String hint, bool obscure) {
-    return Container(
+    return SizedBox(
       height: 56,
       child: TextFormField(
         controller: controller,
@@ -69,7 +70,11 @@ class LoginScreen extends StatelessWidget {
                 )),
             const SizedBox(height: 80),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavBar(),
+                  )),
               child: const Text(
                 'Login',
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),
