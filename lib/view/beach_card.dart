@@ -19,14 +19,17 @@ class BeachCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: SizedBox(
-                height: 187,
-                child: Image.network(
-                  beach.imageUrl,
-                  fit: BoxFit.cover,
-                )),
+          Hero(
+            tag: beach.name,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: SizedBox(
+                  height: 187,
+                  child: Image.network(
+                    beach.imageUrl,
+                    fit: BoxFit.cover,
+                  )),
+            ),
           ),
           const SizedBox(height: 10),
           Container(

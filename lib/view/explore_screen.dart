@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:halopantai/const/color.dart';
 import 'package:halopantai/model/beach.dart';
 import 'package:halopantai/view/beach_card.dart';
+import 'package:halopantai/view/detail_beach_screen.dart';
 
 class ExploreScreen extends StatelessWidget {
   ExploreScreen({Key? key}) : super(key: key);
@@ -76,7 +77,15 @@ class ExploreScreen extends StatelessWidget {
                       : (screenSize.width / 4) / 310),
               itemCount: beachList.length,
               itemBuilder: (context, index) {
-                return BeachCard(beach: beachList[index]);
+                return InkWell(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailBeachScreen(beach: beachList[index]),
+                      )),
+                  child: BeachCard(beach: beachList[index]),
+                );
               }),
         )
       ],
