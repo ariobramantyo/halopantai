@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:halopantai/controller/user_controller.dart';
 import 'package:halopantai/view/login_or_regis_screen.dart';
+import 'package:halopantai/view/navbar.dart';
 import 'package:halopantai/view/splash_screen.dart';
 
 void main() {
@@ -14,11 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Halo Pantai',
       theme: ThemeData(fontFamily: 'Poppins'),
-      home: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 3)),
+      home: FutureBuilder<String>(
+        future: UserController().getEmail(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return const LoginOrRegisterScreen();
+          if (snapshot.hasData) {
+            if (snapshot.data == '') {
+              return const LoginOrRegisterScreen();
+            } else {
+              return NavBar();
+            }
           }
           return const SplashScreen();
         },

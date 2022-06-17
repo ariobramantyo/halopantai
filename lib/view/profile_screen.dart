@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:halopantai/const/color.dart';
+import 'package:halopantai/controller/user_controller.dart';
+import 'package:halopantai/view/login_or_regis_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -49,7 +51,17 @@ class ProfileScreen extends StatelessWidget {
             ),
             const SizedBox(height: 57),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                UserController().removeUserData();
+
+                // navigate to welcome screen
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginOrRegisterScreen(),
+                    ),
+                    (route) => false);
+              },
               child: const Text(
                 'Log out',
                 style: TextStyle(
