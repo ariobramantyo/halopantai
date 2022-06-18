@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:halopantai/const/color.dart';
-import 'package:halopantai/model/beach.dart';
-import 'package:halopantai/view/beach_card.dart';
-import 'package:halopantai/view/detail_beach_screen.dart';
+import 'package:lottie/lottie.dart';
 
 class FavoriteScreen extends StatelessWidget {
   FavoriteScreen({Key? key}) : super(key: key);
@@ -63,30 +61,22 @@ class FavoriteScreen extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35),
-          child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenSize.width <= 600 ? 2 : 4,
-                  crossAxisSpacing: 18,
-                  mainAxisSpacing: 22,
-                  childAspectRatio: screenSize.width <= 600
-                      ? (screenSize.width / 2) /
-                          ((screenSize.width / 2 - 30) + 150)
-                      : (screenSize.width / 4) / 310),
-              itemCount: beachList.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DetailBeachScreen(beach: beachList[index]),
-                        )),
-                    child: BeachCard(beach: beachList[index]));
-              }),
-        )
+            padding: const EdgeInsets.fromLTRB(40, 100, 40, 0),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 250,
+                  width: 250,
+                  child:
+                      Lottie.asset('assets/images/lottie_empty_content.json'),
+                ),
+                const Text(
+                  'Belum ada pantai yang kamu tambahkan ke dalam daftar favorit mu',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColor.secondaryText),
+                )
+              ],
+            ))
       ],
     ));
   }

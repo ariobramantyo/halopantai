@@ -1,112 +1,112 @@
+import 'package:halopantai/model/review.dart';
+
 class Beach {
+  int id;
   String name;
   String address;
   String description;
-  String category;
-  double rating;
-  int ratingCount;
-  String imageUrl;
+  List<BeachImage>? images;
+  List<Review>? reviews;
 
   Beach({
+    required this.id,
     required this.name,
     required this.address,
     required this.description,
-    required this.category,
-    required this.rating,
-    required this.ratingCount,
-    required this.imageUrl,
+    this.images,
+    this.reviews,
   });
+
+  factory Beach.fromJson(Map<String, dynamic> json) => Beach(
+        id: json['id'],
+        name: json['beach_name'],
+        address: json['beach_location'],
+        description: json['beach_description'],
+        images: json['images'] != null
+            ? json['images']
+                .map<BeachImage>((image) => BeachImage.fromJson(image))
+                .toList()
+            : [],
+        reviews: json['reviews'] != null
+            ? json['reviews']
+                .map<Review>((review) => Review.fromJson(review))
+                .toList()
+            : [],
+      );
+}
+
+class BeachImage {
+  int id;
+  String url;
+
+  BeachImage({required this.id, required this.url});
+
+  factory BeachImage.fromJson(Map<String, dynamic> json) =>
+      BeachImage(id: json['id'], url: json['url']);
 }
 
 final beachList = [
   Beach(
-      name: 'Pantai Pasir Putih',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Pasir Putih',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Pandawa',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Pandawa',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Kuta',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Kuta',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Nusa Dua',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Nusa Dua',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Sanur',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Sanur',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Jimbaran',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Jimbaran',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Tanah Lot',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Tanah Lot',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Melasti',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Melasti',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
   Beach(
-      name: 'Pantai Lovina',
-      address: 'Jalan, Bali',
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
-      category: 'Surfing Beach',
-      rating: 4.2,
-      ratingCount: 215,
-      imageUrl:
-          'https://media.suara.com/pictures/970x544/2021/07/17/99935-pantai-pandawa-bali-dok-pribadiyudi-rahmatullah.jpg'),
+    id: 1,
+    name: 'Pantai Lovina',
+    address: 'Jalan, Bali',
+    description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore ',
+  ),
 ];

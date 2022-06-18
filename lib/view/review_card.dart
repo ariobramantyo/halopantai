@@ -26,7 +26,7 @@ class ReviewCard extends StatelessWidget {
         border: Border.all(width: 1, color: AppColor.stroke),
       ),
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,18 +46,9 @@ class ReviewCard extends StatelessWidget {
                 )),
               ),
               const SizedBox(width: 11),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    review.name,
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    review.time,
-                    style: const TextStyle(color: AppColor.secondaryText),
-                  ),
-                ],
+              Text(
+                review.name,
+                style: const TextStyle(fontSize: 16),
               )
             ],
           ),

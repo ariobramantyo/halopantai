@@ -6,8 +6,6 @@ import 'package:halopantai/view/login_or_regis_screen.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
-  final _name = "Mark Spector";
-
   String getTwoLetterName(String name) {
     var names = name.toUpperCase().split(' ');
     if (names.length >= 2) {
@@ -25,29 +23,38 @@ class ProfileScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.grey[200]),
-                  child: Center(
-                      child: Text(
-                    getTwoLetterName(_name),
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: AppColor.secondaryText),
-                  )),
-                ),
-                const SizedBox(width: 16),
-                Text(
-                  _name,
-                  style: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.w500),
-                )
-              ],
+            FutureBuilder<String>(
+              future: UserController().getUsername(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  debugPrint(snapshot.data!);
+                  return Row(
+                    children: [
+                      Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Colors.grey[200]),
+                        child: Center(
+                            child: Text(
+                          getTwoLetterName(snapshot.data!),
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: AppColor.secondaryText),
+                        )),
+                      ),
+                      const SizedBox(width: 16),
+                      Text(
+                        snapshot.data!,
+                        style: const TextStyle(
+                            fontSize: 17, fontWeight: FontWeight.w500),
+                      )
+                    ],
+                  );
+                }
+                return Container();
+              },
             ),
             const SizedBox(height: 57),
             InkWell(

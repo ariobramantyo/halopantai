@@ -26,7 +26,8 @@ class BeachCard extends StatelessWidget {
               child: SizedBox(
                   height: 187,
                   child: Image.network(
-                    beach.imageUrl,
+                    beach.images![1].url,
+                    // 'https://i2.wp.com/blog.tripcetera.com/id/wp-content/uploads/2020/03/leebudihart_76864081_2484833498431751_3194446755026370817_n-1024x768.jpg',
                     fit: BoxFit.cover,
                   )),
             ),
@@ -37,14 +38,14 @@ class BeachCard extends StatelessWidget {
             child: Row(
               children: [
                 const Icon(
-                  Icons.star,
+                  Icons.location_on,
                   color: Colors.green,
                   size: 12,
                 ),
                 SizedBox(
                   width: 120,
                   child: Text(
-                    ' ${beach.rating}(${beach.ratingCount}) • ${beach.category}',
+                    beach.address,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 11, color: AppColor.secondaryText),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:halopantai/api/api_service.dart';
 import 'package:halopantai/const/color.dart';
 import 'package:halopantai/model/beach.dart';
 import 'package:halopantai/model/review.dart';
+import 'package:halopantai/model/service.dart';
 import 'package:halopantai/view/review_card.dart';
 
 class DetailBeachScreen extends StatelessWidget {
@@ -21,7 +23,7 @@ class DetailBeachScreen extends StatelessWidget {
                 Hero(
                   tag: beach.name,
                   child: Image.network(
-                    beach.imageUrl,
+                    beach.images![1].url,
                     fit: BoxFit.cover,
                     width: double.infinity,
                     height: 400,
@@ -93,7 +95,7 @@ class DetailBeachScreen extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            margin: const EdgeInsets.fromLTRB(20, 20, 20, 40),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -102,27 +104,10 @@ class DetailBeachScreen extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 24, fontWeight: FontWeight.w500),
                 ),
-                Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.end,
-                  children: [
-                    Text(
-                      '${beach.address} • ',
-                      style: const TextStyle(color: AppColor.secondaryText),
-                    ),
-                    const Icon(
-                      Icons.star,
-                      color: Colors.green,
-                    ),
-                    Text(
-                      '${beach.rating}',
-                      style: const TextStyle(color: AppColor.secondaryText),
-                    ),
-                    Text(
-                      ' Reviews (${beach.ratingCount})',
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                )
+                Text(
+                  beach.address,
+                  style: const TextStyle(color: AppColor.secondaryText),
+                ),
               ],
             ),
           ),
@@ -137,25 +122,45 @@ class DetailBeachScreen extends StatelessWidget {
             endIndent: 20,
             indent: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              '${beach.rating} (${beach.ratingCount} reviews)',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
-          ),
-          Container(
-            height: 250,
-            margin: const EdgeInsets.symmetric(vertical: 24),
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: listReview.length + 1,
-              itemBuilder: (context, index) {
-                return index != listReview.length
-                    ? ReviewCard(review: listReview[index])
-                    : const SizedBox(width: 20);
-              },
-            ),
+          FutureBuilder(
+            future: ApiService.getBeachReviewsById(beach.id),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data is ServicesSuccess) {
+                  var reviews =
+                      (snapshot.data as ServicesSuccess).data as List<Review>;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          '${reviews.length} reviews',
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      ),
+                      Container(
+                        height: 250,
+                        margin: const EdgeInsets.symmetric(vertical: 24),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: reviews.length + 1,
+                          itemBuilder: (context, index) {
+                            return index != reviews.length
+                                ? ReviewCard(review: reviews[index])
+                                : const SizedBox(width: 20);
+                          },
+                        ),
+                      )
+                    ],
+                  );
+                }
+                return Container();
+              }
+              return const Center(child: CircularProgressIndicator());
+            },
           )
         ],
       ),

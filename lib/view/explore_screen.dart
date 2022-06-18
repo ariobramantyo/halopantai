@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:halopantai/api/api_service.dart';
 import 'package:halopantai/const/color.dart';
 import 'package:halopantai/model/beach.dart';
+import 'package:halopantai/model/service.dart';
 import 'package:halopantai/view/beach_card.dart';
 import 'package:halopantai/view/detail_beach_screen.dart';
 
@@ -62,31 +64,51 @@ class ExploreScreen extends StatelessWidget {
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 35),
-          child: GridView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: screenSize.width <= 600 ? 2 : 4,
-                  crossAxisSpacing: 18,
-                  mainAxisSpacing: 22,
-                  childAspectRatio: screenSize.width <= 600
-                      ? (screenSize.width / 2) /
-                          ((screenSize.width / 2 - 30) + 150)
-                      : (screenSize.width / 4) / 310),
-              itemCount: beachList.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            DetailBeachScreen(beach: beachList[index]),
-                      )),
-                  child: BeachCard(beach: beachList[index]),
+        FutureBuilder<dynamic>(
+          future: ApiService.getAllBeach(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data is ServicesSuccess) {
+                var listBeach =
+                    (snapshot.data as ServicesSuccess).data as List<Beach>;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 35),
+                  child: GridView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: screenSize.width <= 600 ? 2 : 4,
+                          crossAxisSpacing: 18,
+                          mainAxisSpacing: 22,
+                          childAspectRatio: screenSize.width <= 600
+                              ? (screenSize.width / 2) /
+                                  ((screenSize.width / 2 - 30) + 150)
+                              : (screenSize.width / 4) / 310),
+                      itemCount: listBeach.length,
+                      itemBuilder: (context, index) {
+                        // print(index);
+                        return InkWell(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailBeachScreen(beach: listBeach[index]),
+                              )),
+                          child: BeachCard(beach: listBeach[index]),
+                        );
+                      }),
                 );
-              }),
+              }
+
+              return Container(
+                height: 40,
+                width: 40,
+                color: Colors.red,
+              );
+            }
+
+            return const Center(child: CircularProgressIndicator());
+          },
         )
       ],
     ));
