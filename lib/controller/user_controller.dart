@@ -13,15 +13,22 @@ class UserController extends ChangeNotifier {
     return preferences.getString('email') ?? '';
   }
 
-  void saveUserData(String username, String email) async {
+  Future<int> getUserId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getInt('userId') ?? -1;
+  }
+
+  void saveUserData(String username, String email, int userId) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('email', email);
     preferences.setString('username', username);
+    preferences.setInt('userId', userId);
   }
 
   void removeUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.setString('email', '');
     preferences.setString('username', '');
+    preferences.setInt('userId', -1);
   }
 }

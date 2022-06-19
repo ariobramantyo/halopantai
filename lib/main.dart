@@ -1,10 +1,14 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halopantai/controller/user_controller.dart';
 import 'package:halopantai/view/login_or_regis_screen.dart';
 import 'package:halopantai/view/navbar.dart';
 import 'package:halopantai/view/splash_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 

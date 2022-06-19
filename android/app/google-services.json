@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "529120723231",
+    "project_id": "halopantai",
+    "storage_bucket": "halopantai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529120723231:android:871fd9204060760e6f302a",
+        "android_client_info": {
+          "package_name": "com.example.halopantai"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529120723231-qc4lcud9g2tetfjj5ik72i1o58nmchp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrZbk_tVP8BjnZmaQI-C92KjQQaUelWH0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529120723231-qc4lcud9g2tetfjj5ik72i1o58nmchp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

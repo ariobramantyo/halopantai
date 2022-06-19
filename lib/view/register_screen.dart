@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halopantai/api/api_service.dart';
+import 'package:halopantai/service/api_service.dart';
 import 'package:halopantai/component/dialog_custom.dart';
 import 'package:halopantai/component/loading_dialog.dart';
 import 'package:halopantai/const/color.dart';

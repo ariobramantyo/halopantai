@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
+import 'package:halopantai/controller/user_controller.dart';
 import 'package:halopantai/model/beach.dart';
 import 'package:halopantai/model/login_response.dart';
 import 'package:halopantai/model/review.dart';
@@ -124,6 +125,29 @@ class ApiService {
       return ServicesFailure(code: 101, errMsg: "No Internet Conecction!");
     } catch (e) {
       return ServicesFailure(code: 102, errMsg: "Unknown Error!");
+    }
+  }
+
+  static Future<bool> postReview(String review, int beachId) async {
+    var url = Uri.parse(baseUrl + 'storeAPI');
+
+    try {
+      var userId = await UserController().getUserId();
+      var response = await http.post(url, body: {
+        'review': review,
+        'beach_id': beachId.toString(),
+        'user_id': userId.toString(),
+      });
+
+      debugPrint(response.statusCode.toString());
+
+      if (response.statusCode == 200) {
+        var result = json.decode(response.body);
+        return result['error'] as bool;
+      }
+      return false;
+    } catch (e) {
+      return false;
     }
   }
 }

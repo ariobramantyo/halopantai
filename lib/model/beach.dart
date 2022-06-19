@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:halopantai/model/review.dart';
 
 class Beach {
@@ -33,6 +34,27 @@ class Beach {
                 .toList()
             : [],
       );
+
+  factory Beach.fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> map) =>
+      Beach(
+        id: map['id'],
+        name: map['beach_name'],
+        address: map['beach_location'],
+        description: map['beach_description'],
+        images: map['images'] != null
+            ? map['images']
+                .map<BeachImage>((image) => BeachImage.fromJson(image))
+                .toList()
+            : [],
+      );
+
+  Map<String, dynamic> toMap() => {
+        'id': id,
+        'beach_name': name,
+        'beach_location': address,
+        'beach_description': description,
+        'images': images!.map((image) => image.toMap()).toList(),
+      };
 }
 
 class BeachImage {
@@ -43,6 +65,8 @@ class BeachImage {
 
   factory BeachImage.fromJson(Map<String, dynamic> json) =>
       BeachImage(id: json['id'], url: json['url']);
+
+  Map<String, dynamic> toMap() => {'id': id, 'url': url};
 }
 
 final beachList = [

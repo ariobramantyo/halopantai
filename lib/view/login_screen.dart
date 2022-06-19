@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halopantai/api/api_service.dart';
+import 'package:halopantai/service/api_service.dart';
 import 'package:halopantai/component/loading_dialog.dart';
 import 'package:halopantai/const/color.dart';
 import 'package:halopantai/controller/user_controller.dart';
@@ -88,7 +88,8 @@ class LoginScreen extends StatelessWidget {
                   if (response is ServicesSuccess) {
                     // save user data locally
                     User user = (response.data as LoginResponse).data.user;
-                    UserController().saveUserData(user.name, user.email);
+                    UserController()
+                        .saveUserData(user.name, user.email, user.id);
 
                     // navigate to homepage
                     Navigator.pushAndRemoveUntil(

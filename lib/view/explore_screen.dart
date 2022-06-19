@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:halopantai/api/api_service.dart';
+import 'package:halopantai/controller/user_controller.dart';
+import 'package:halopantai/service/api_service.dart';
 import 'package:halopantai/const/color.dart';
 import 'package:halopantai/model/beach.dart';
 import 'package:halopantai/model/service.dart';
@@ -88,12 +89,17 @@ class ExploreScreen extends StatelessWidget {
                       itemBuilder: (context, index) {
                         // print(index);
                         return InkWell(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailBeachScreen(beach: listBeach[index]),
-                              )),
+                          onTap: () async {
+                            final userId = await UserController().getUserId();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailBeachScreen(
+                                    beach: listBeach[index],
+                                    userId: userId,
+                                  ),
+                                ));
+                          },
                           child: BeachCard(beach: listBeach[index]),
                         );
                       }),
