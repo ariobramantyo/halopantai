@@ -1,16 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:halopantai/component/beach_card_shimmer.dart';
 import 'package:halopantai/component/empty_list_lottie.dart';
-import 'package:halopantai/const/color.dart';
 import 'package:halopantai/controller/user_controller.dart';
 import 'package:halopantai/model/beach.dart';
 import 'package:halopantai/view/beach_card.dart';
 import 'package:halopantai/view/detail_beach_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
-  FavoriteScreen({Key? key}) : super(key: key);
-
-  final _searchController = TextEditingController();
+  const FavoriteScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,46 +18,8 @@ class FavoriteScreen extends StatelessWidget {
         body: ListView(
       physics: const BouncingScrollPhysics(),
       children: [
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 50,
-                width: screenSize.width - 80,
-                child: TextFormField(
-                  controller: _searchController,
-                  textAlignVertical: TextAlignVertical.bottom,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: AppColor.dark,
-                  ),
-                  decoration: InputDecoration(
-                      hintText: 'Cari Pantai',
-                      hintStyle: const TextStyle(
-                          fontSize: 13, color: AppColor.secondaryText),
-                      filled: true,
-                      fillColor: AppColor.placeHolder,
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: AppColor.secondaryText,
-                      ),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(12))),
-                ),
-              ),
-              const Icon(
-                Icons.tune,
-                size: 28,
-              )
-            ],
-          ),
-        ),
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Text(
             'Favorite',
             style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
@@ -126,10 +86,10 @@ class FavoriteScreen extends StatelessWidget {
                     } else if (snapshot.hasError) {
                       return const EmptyContentLottie();
                     }
-                    return const Center(child: CircularProgressIndicator());
+                    return const BeachCardShimmer();
                   });
             }
-            return const Center(child: CircularProgressIndicator());
+            return const BeachCardShimmer();
           },
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:halopantai/component/beach_card_shimmer.dart';
 import 'package:halopantai/controller/user_controller.dart';
 import 'package:halopantai/service/api_service.dart';
 import 'package:halopantai/const/color.dart';
@@ -106,14 +107,10 @@ class ExploreScreen extends StatelessWidget {
                 );
               }
 
-              return Container(
-                height: 40,
-                width: 40,
-                color: Colors.red,
-              );
+              return Container();
             }
 
-            return const Center(child: CircularProgressIndicator());
+            return const BeachCardShimmer();
           },
         )
       ],

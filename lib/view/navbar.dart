@@ -10,7 +10,7 @@ class NavBar extends StatelessWidget {
 
   final _listScreen = [
     ExploreScreen(),
-    FavoriteScreen(),
+    const FavoriteScreen(),
     const ProfileScreen(),
   ];
 
